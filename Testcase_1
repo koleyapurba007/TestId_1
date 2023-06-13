@@ -1,0 +1,51 @@
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class SeleniumExample {
+    public static void main(String[] args) {
+        
+        System.setProperty("webdriver.chrome.driver", "path/chromedriver");
+
+         WebDriver driver = new ChromeDriver();
+
+        // Open LambdaTest Selenium Playground
+        driver.get("https://www.lambdatest.com/selenium-playground");
+
+        // Click "Simple Form Demo" under Input Forms
+        WebElement simpleFormDemoLink = driver.findElement(By.linkText("Simple Form Demo"));
+        simpleFormDemoLink.click();
+
+        // Validate that the URL contains "simple-form-demo"
+        String currentUrl = driver.getCurrentUrl();
+        if (currentUrl.contains("simple-form-demo")) {
+            System.out.println("URL validation passed");
+        } else {
+            System.out.println("URL validation failed");
+        }
+
+        // Create a variable for a string value
+        String message = "Welcome to LambdaTest";
+
+        // Use the variable to enter values in the "Enter Message" text box
+        WebElement messageInput = driver.findElement(By.id("user-message"));
+        messageInput.sendKeys(message);
+
+        // Click "Get Checked Value"
+        WebElement getCheckedValueButton = driver.findElement(By.xpath("//button[text()='Get Checked Value']"));
+        getCheckedValueButton.click();
+
+        // Validate whether the same text message is displayed in the right-hand panel under the "Your Message:" section
+        WebElement displayedMessage = driver.findElement(By.id("display"));
+        String displayedMessageText = displayedMessage.getText();
+        if (displayedMessageText.equals(message)) {
+            System.out.println("Message validation passed");
+        } else {
+            System.out.println("Message validation failed");
+        }
+
+        // Close the browser
+        driver.quit();
+    }
+}
